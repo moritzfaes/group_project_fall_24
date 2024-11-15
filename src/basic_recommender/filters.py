@@ -34,7 +34,7 @@ class DataFilter:
     @staticmethod
     def filter_by_author(unfiltered_data: pd.DataFrame, author_query: str, exact_match: bool = False) -> pd.DataFrame:
         """
-        Filter books dataframe by title.
+        Filter books dataframe by author.
 
         Args:
             unfiltered_data (pd.DataFrame): DataFrame containing book data
