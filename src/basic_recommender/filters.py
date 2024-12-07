@@ -48,6 +48,15 @@ class DataFilter:
             ValueError: If author_query is empty
         """
         # Help for implementation --> look at the filter_by_title function to see how this can be done
+        if not isinstance(author_query, str) or not author_query.strip():
+            raise ValueError("Author query must be a non-empty string")
+
+         author_query = author_query.lower().strip()
+
+        if exact_match:
+            return unfiltered_data[unfiltered_data["author"].str.lower() == author_query]
+        else:
+            return unfiltered_data[unfiltered_data["author"].str.lower().str.contains(author_query, na=False)]
 
         pass
 
@@ -67,6 +76,14 @@ class DataFilter:
         Raises:
             ValueError: If minimum rating is empty or if it is not a numerical value
         """
+        if not isinstance(minimum_rating, float) or not minimum_rating.strip():
+            raise ValueError("Minimum rating must be a non-empty float")
+
+        if minimum_rating:
+            return unfiltered_data[unfiltered_data["minimum rating"].float.lower() = minimum_rating]
+        else:
+            return unfiltered_data[unfiltered_data["minimum rating"].float.lower().float.contains(minimum_rating, na=False)]
+
         pass
 
     @staticmethod
@@ -84,6 +101,10 @@ class DataFilter:
         Raises:
             ValueError: If language is empty
         """
+         if not isinstance(language, str) or not language.strip():
+            raise ValueError("Language must be entered")
+
+         language = language.lower().strip()
         pass
 
     @staticmethod
@@ -124,6 +145,17 @@ class DataFilter:
         Raises:
             ValueError: If minimum_pages is not a positive integer (or if it is not an integer at all)
         """
+        if not isinstance(minimum_pages, int) or not minimum_pages.strip():
+            raise ValueError("Minumum pages must be a non-empty integer")
+
+         minimum_pages = minimum_pages.lower().strip()
+
+        if minimum_pages:
+            return unfiltered_data[unfiltered_data["minimum pages"].int.lower() >= minimum_pages]
+        else:
+            return unfiltered_data[unfiltered_data["minimum pages"].int.lower().int.contains(minimum_pages, na=False)]
+
+
 
     @staticmethod
     def filter_by_maximum_pages(unfiltered_data: pd.DataFrame, maximum_pages: int) -> pd.DataFrame:
@@ -140,9 +172,19 @@ class DataFilter:
         Raises:
             ValueError: If maximum_pages is not a positive integer (or if it is not an integer at all)
         """
+        if not isinstance(minimum_pages, float) or not minimum_pages.strip():
+            raise ValueError("Minumum pages must be a non-empty float")
+
+         minimum_pages = minimum_pages.lower().strip()
+
+        if maximum_pages:
+            return unfiltered_data[unfiltered_data["minimum pages"].str.lower() >= minimum_pages]
+        else:
+            return unfiltered_data[unfiltered_data["minimum pages"].str.lower().str.contains(minimum_pages, na=False)]
 
     @staticmethod
     def filter_by_isbn(unfiltered_data: pd.DataFrame, isbn_query: str) -> pd.DataFrame:
+    def filter_by_isbn(unfiltered_data: pd.DataFrame, isbn_query: str, exact_match: bool = False) -> pd.DataFrame:
         """
         Filter books dataframe by ISBN.
 
@@ -160,6 +202,17 @@ class DataFilter:
             ISBN matching is exact and case-insensitive. Both ISBN-10 and ISBN-13 formats are supported. --> Check
             the data to see if both formats occur. if not, only account for the one that is appearing
         """
+
+        if not isinstance(isbn_query, str) or not isbn_query.strip():
+            raise ValueError("Title query must be a non-empty string")
+
+        isbn_query = isbn_query.lower().strip()
+
+        if exact_match:
+            return unfiltered_data[unfiltered_data["ISBN query"].str.lower() == isbn_query]
+        else:
+            return unfiltered_data[unfiltered_data["ISBN query"].str.lower().str.contains(isbn_query, na=False)]
+
         pass
 
 
