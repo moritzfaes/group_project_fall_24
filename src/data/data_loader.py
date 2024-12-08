@@ -24,5 +24,8 @@ class DataLoader:
             )
 
         book_data = pd.read_csv(data_path)
+        book_data["pages"] = pd.to_numeric(book_data["pages"], errors="coerce")
+        book_data["rating"] = pd.to_numeric(book_data["rating"], errors="coerce")
+
         return book_data
 
