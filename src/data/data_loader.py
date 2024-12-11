@@ -15,7 +15,7 @@ class DataLoader:
     def get_book_data() -> pd.DataFrame:
         """Load the book dataset using an absolute path resolved from project root."""
         root_dir = DataLoader.get_project_root()
-        data_path = root_dir / "data" / "books_dataset_cleaned.csv"
+        data_path = root_dir / "data" / "books_with_unique_isbns.csv"
 
         if not data_path.exists():
             raise FileNotFoundError(
@@ -24,5 +24,8 @@ class DataLoader:
             )
 
         book_data = pd.read_csv(data_path)
+        book_data["pages"] = pd.to_numeric(book_data["pages"], errors="coerce")
+        book_data["rating"] = pd.to_numeric(book_data["rating"], errors="coerce")
+
         return book_data
 
