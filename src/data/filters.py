@@ -201,27 +201,3 @@ class DataFilter:
         # Clean ISBNs in dataframe for comparison
         clean_isbns = unfiltered_data["isbn"].str.replace("-", "").str.replace(" ", "")
         return unfiltered_data[clean_isbns == isbn_query]
-
-
-def main():
-    # Example usage
-    book_data = DataLoader.get_book_data()
-
-    # Test the filter with different scenarios
-    print("\nTesting partial title match:")
-    harry_potter_books = DataFilter.filter_by_title(book_data, "harry potter")
-    print(f"Found {len(harry_potter_books)} books matching 'harry potter'")
-    print(harry_potter_books[["title", "author"]].head())
-
-    print("\nTesting exact title match:")
-    exact_book = DataFilter.filter_by_title(
-        book_data,
-        "Harry Potter and the Sorcerer's Stone",
-        exact_match=True
-    )
-    print(f"Found {len(exact_book)} books with exact title match")
-    print(exact_book[["title", "author"]].head())
-
-
-if __name__ == "__main__":
-    main()
