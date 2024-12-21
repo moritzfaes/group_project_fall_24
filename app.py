@@ -214,7 +214,7 @@ def main():
                             st.session_state.search_results = DataFilter.filter_by_title(
                                 df, title_query, title_exact
                             )
-                            display_search_results(df)
+                            display_search_results(st.session_state.search_results)
                         except ValueError as e:
                             st.error(str(e))
 
